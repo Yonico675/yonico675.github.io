@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio BTS SIO — SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #141720;
+    --border: rgba(255,255,255,0.07);
+    --accent: #4af0a8;
+    --accent2: #a78bfa;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --card1: #131c1a;
+    --card2: #15121f;
+    --card3: #14161a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grille de fond subtile */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Lueur d'ambiance */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(74,240,168,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 6rem 0 5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 .name {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .hero-meta span { color: var(--text); }
+
+  /* ── SECTION TITRE ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s ease forwards 0.3s;
+  }
+
+  .card {
+    background: var(--bg);
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .card:hover { background: var(--surface); }
+
+  .card:hover .card-arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .card-arrow {
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.2s, color 0.2s;
+    line-height: 1;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-icon svg { width: 18px; height: 18px; }
+
+  .icon-green { background: rgba(74,240,168,0.1); color: var(--accent); }
+  .icon-purple { background: rgba(167,139,250,0.12); color: var(--accent2); }
+  .icon-blue { background: rgba(96,165,250,0.1); color: #60a5fa; }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  footer .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    margin-right: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero { padding: 4rem 0 3rem; }
+    h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <nav>
+    <span class="nav-logo">portfolio.sisr</span>
+    <span class="nav-badge">BTS SIO · Session 2026</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Administration des systèmes et des réseaux</div>
+    <h1>Bienvenue sur<br>mon <span class="name">portfolio</span></h1>
+    <p class="hero-sub">
+      Bonjour, je m'appelle Gaétan Roullet, je suis étudiant en BTS SIO option SISR, vous trouverez ici mes réalisations professionnelles, mes attestations de stage et mes compétences techniques.
+    </p>
+    <div class="hero-meta">
+      Établissement&nbsp;<span>Lycée Raoul Follereau</span>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      Promotion&nbsp;<span>2024 – 2026</span>
+    </div>
+  </section>
+
+  <div class="section-label">
+    <span>Sections du portfolio</span>
+    <span>03 entrées</span>
+  </div>
+
+  <div class="cards">
+
+    <!-- Carte 1 : Attestations & rapports -->
+    <a class="card" href="attestations.html">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-icon icon-green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <div class="card-title">Attestations &amp; rapports de stage</div>
+      <p class="card-desc">Conventions de stage, attestations de présence et rapports rédigés lors de mes périodes en entreprise.</p>
+      <div class="card-tags">
+        <span class="tag">Stage 1ère année</span>
+        <span class="tag">Stage 2ème année</span>
+      </div>
+    </a>
+
+    <!-- Carte 2 : Réalisations professionnelles -->
+    <a class="card" href="realisations.html">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-icon icon-purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+          <path d="M7 9l3 3 5-5"/>
+        </svg>
+      </div>
+      <div class="card-title">Réalisations professionnelles</div>
+      <p class="card-desc">Présentation de mes deux réalisations E6 : infrastructure réseau et pare-feu pfSense avec VPN OpenVPN.</p>
+      <div class="card-tags">
+        <span class="tag">RP 01 — Infra réseau</span>
+        <span class="tag">RP 02 — pfSense</span>
+      </div>
+    </a>
+
+    <!-- Carte 3 : Compétences & Veille -->
+    <a class="card" href="competences.html">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-icon icon-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="card-title">Compétences &amp; veille techno</div>
+      <p class="card-desc">Mes compétences techniques acquises durant la formation et ma veille technologique sur la sécurité réseau.</p>
+      <div class="card-tags">
+        <span class="tag">Linux</span>
+        <span class="tag">Réseau</span>
+        <span class="tag">Sécurité</span>
+        <span class="tag">Veille</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    <span><span class="dot"></span>Portfolio en ligne</span>
+    <span>BTS SIO SISR · 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
