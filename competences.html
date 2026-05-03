@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compétences et veille informationnelle - Portfolio E5 SISR</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #151922;
+    --surface-soft: #11151d;
+    --border: rgba(255,255,255,0.08);
+    --accent: #4af0a8;
+    --accent2: #a78bfa;
+    --accent3: #f7c948;
+    --accent4: #60a5fa;
+    --text: #e8eaf0;
+    --muted: #8a93a3;
+    --muted-dark: #5f6674;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 58px 58px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 620px;
+    height: 420px;
+    background:
+      radial-gradient(ellipse at 25% 40%, rgba(167,139,250,0.07), transparent 58%),
+      radial-gradient(ellipse at 74% 28%, rgba(247,201,72,0.05), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .hero {
+    padding: 4.5rem 0 3rem;
+    max-width: 760px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.1rem;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+    margin-bottom: 0.7rem;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+
+  .hero-sub, .text, li {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .grid-3, .grid-2 {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(17,21,29,0.78);
+    padding: 1.25rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.28s; }
+  .card:nth-child(3) { animation-delay: 0.36s; }
+
+  .card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dark);
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    border: 1px solid rgba(74,240,168,0.25);
+    border-radius: 999px;
+    padding: 4px 9px;
+    white-space: nowrap;
+  }
+
+  .pill-purple {
+    color: var(--accent2);
+    border-color: rgba(167,139,250,0.28);
+  }
+
+  .pill-yellow {
+    color: var(--accent3);
+    border-color: rgba(247,201,72,0.28);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(17,21,29,0.78);
+    margin-bottom: 4rem;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+
+  .panel-header {
+    padding: 1.45rem 1.6rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(21,25,34,0.84);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-bottom: 0.35rem;
+  }
+
+  .panel-meta {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .panel-body {
+    padding: 1.6rem;
+  }
+
+  .watch-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  li {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .source-list {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .source {
+    display: grid;
+    grid-template-columns: 155px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(13,15,18,0.95);
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .source:hover { background: var(--surface); }
+
+  .source-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent4);
+  }
+
+  .source-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .method {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .method-step {
+    background: rgba(13,15,18,0.95);
+    padding: 1rem;
+  }
+
+  .method-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent3);
+    margin-bottom: 0.55rem;
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .button:hover {
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.05);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: var(--text); }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 920px) {
+    .grid-3, .grid-2, .watch-grid, .method { grid-template-columns: 1fr; }
+    .source { grid-template-columns: 1fr; gap: 0.4rem; }
+  }
+
+  @media (max-width: 620px) {
+    .wrapper { padding: 0 1.2rem; }
+    nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { justify-content: flex-start; }
+    h1 { font-size: 2.35rem; }
+    .panel-header { flex-direction: column; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<link rel="stylesheet" href="projection.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <nav>
+    <a href="index.html" class="nav-logo">portfolio.e5</a>
+    <div class="nav-links" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="attestations.html">Stages</a>
+      <a href="stage1.html">Stage 1</a>
+      <a href="stage2.html">Stage 2</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="#veille">Veille</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Étape 05 du fil E5</div>
+    <h1>Compétences et veille informationnelle</h1>
+    <p class="hero-sub">
+      Cette page synthétise les compétences SISR que je peux défendre à l'oral, puis présente
+      ma veille sur la sécurisation des infrastructures, des accès distants et des postes de travail.
+    </p>
+  </section>
+
+  <div class="section-label">
+    <span>Compétences techniques</span>
+    <span>SISR</span>
+  </div>
+
+  <section class="grid-3">
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">01</span>
+        <span class="pill">Systèmes</span>
+      </div>
+      <h2>Administrer des environnements</h2>
+      <p class="text">
+        Configuration de postes Windows et Linux, ajout au domaine, application de GPO,
+        installation d'applications et préparation de machines virtuelles.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Windows</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">GPO</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">02</span>
+        <span class="pill pill-purple">Réseau</span>
+      </div>
+      <h2>Mettre à disposition un service</h2>
+      <p class="text">
+        Déploiement d'une infrastructure virtualisée, services réseau, supervision,
+        segmentation logique et accès distant sécurisé avec pfSense et OpenVPN.
+      </p>
+      <div class="tag-list">
+        <span class="tag">TCP/IP</span>
+        <span class="tag">DNS/DHCP</span>
+        <span class="tag">pfSense</span>
+        <span class="tag">OpenVPN</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">03</span>
+        <span class="pill pill-yellow">Support</span>
+      </div>
+      <h2>Répondre aux incidents</h2>
+      <p class="text">
+        Diagnostic de pannes, assistance utilisateurs, déblocage de comptes, résolution
+        d'incidents SAP, VPN, Windows et interventions sur le matériel.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Diagnostic</span>
+        <span class="tag">SAP</span>
+        <span class="tag">VPN</span>
+        <span class="tag">Maintenance</span>
+      </div>
+    </article>
+  </section>
+
+  <div class="section-label">
+    <span>Travaux réalisés pendant les 2 ans</span>
+    <span>Niveau moyen</span>
+  </div>
+
+  <section class="grid-3">
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Projet</span>
+        <span class="pill">GLPI</span>
+      </div>
+      <h2>Gestion de parc et tickets</h2>
+      <p class="text">
+        Découverte de GLPI pour comprendre la gestion d'un parc informatique, le suivi
+        des demandes utilisateurs, les tickets d'incident et l'organisation du support.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Inventaire</span>
+        <span class="tag">Tickets</span>
+        <span class="tag">Support</span>
+        <span class="tag">Niveau moyen</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Projet</span>
+        <span class="pill pill-purple">Site Rébus</span>
+      </div>
+      <h2>Site web interactif</h2>
+      <p class="text">
+        Réalisation d'un site autour des rébus afin de travailler la structure d'une page,
+        la présentation du contenu, la navigation et les bases du développement web.
+      </p>
+      <div class="tag-list">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Navigation</span>
+        <span class="tag">Niveau moyen</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Projet</span>
+        <span class="pill pill-yellow">Escape game</span>
+      </div>
+      <h2>Logique et scénario</h2>
+      <p class="text">
+        Travail sur un escape game pour développer la logique, l'enchaînement d'énigmes,
+        la création d'un parcours utilisateur et la mise en forme d'une expérience interactive.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Logique</span>
+        <span class="tag">Interaction</span>
+        <span class="tag">Parcours</span>
+        <span class="tag">Niveau moyen</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Projet</span>
+        <span class="pill">Web</span>
+      </div>
+      <h2>Bases du développement web</h2>
+      <p class="text">
+        Mise en pratique des bases web: pages HTML, mise en forme CSS, liens entre pages,
+        organisation du contenu et adaptation de l'affichage pour un portfolio.
+      </p>
+      <div class="tag-list">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Responsive</span>
+        <span class="tag">Niveau moyen</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Compétence</span>
+        <span class="pill pill-purple">Informatique générale</span>
+      </div>
+      <h2>Culture informatique</h2>
+      <p class="text">
+        Progression générale sur les postes, les systèmes, les réseaux, le support,
+        la sécurité de base, la résolution de problèmes et la documentation.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Systèmes</span>
+        <span class="tag">Réseau</span>
+        <span class="tag">Support</span>
+        <span class="tag">Niveau moyen</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="panel" id="veille">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Veille informationnelle</div>
+        <p class="panel-meta">Sujet: sécurisation des accès distants et administration sûre des infrastructures.</p>
+      </div>
+      <span class="pill pill-purple">Mise à jour 2026</span>
+    </div>
+
+    <div class="panel-body">
+      <p class="text">
+        J'ai choisi ce sujet parce qu'il relie directement mes réalisations et mon stage de
+        deuxième année: pare-feu pfSense, VPN OpenVPN, certificats utilisateurs, incidents VPN,
+        gestion des accès et maintien en condition opérationnelle d'un parc informatique.
+      </p>
+
+      <div class="watch-grid">
+        <article class="card">
+          <div class="card-topline">
+            <span class="card-num">Objectifs</span>
+            <span class="pill">Pourquoi</span>
+          </div>
+          <ul>
+            <li>Comprendre les risques liés aux accès distants, aux comptes et aux certificats.</li>
+            <li>Identifier les vulnérabilités critiques qui touchent les systèmes et équipements réseau.</li>
+            <li>Relier l'actualité cybersécurité à des actions concrètes: mise à jour, MFA, supervision, sauvegarde.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-topline">
+            <span class="card-num">Synthèse orale</span>
+            <span class="pill pill-yellow">À défendre</span>
+          </div>
+          <p class="text">
+            Ma veille montre que la sécurité d'une infrastructure ne dépend pas seulement du
+            pare-feu. Elle repose aussi sur l'identité, les droits, la surveillance, les correctifs,
+            les certificats et la capacité à réagir rapidement lorsqu'une vulnérabilité est publiée.
+          </p>
+        </article>
+      </div>
+
+      <div class="section-label">
+        <span>Méthode de veille</span>
+        <span>Cycle simple</span>
+      </div>
+
+      <div class="method">
+        <div class="method-step">
+          <div class="method-num">01</div>
+          <h3>Collecter</h3>
+          <p class="text">Suivre des sources fiables: CERT-FR, ANSSI, éditeurs et documentations officielles.</p>
+        </div>
+        <div class="method-step">
+          <div class="method-num">02</div>
+          <h3>Trier</h3>
+          <p class="text">Garder les informations liées au réseau, aux systèmes, aux accès distants et à l'identité.</p>
+        </div>
+        <div class="method-step">
+          <div class="method-num">03</div>
+          <h3>Comprendre</h3>
+          <p class="text">Identifier le risque, les versions touchées, les impacts et les mesures recommandées.</p>
+        </div>
+        <div class="method-step">
+          <div class="method-num">04</div>
+          <h3>Réutiliser</h3>
+          <p class="text">Transformer la veille en réflexes: patch, MFA, durcissement, journalisation et sauvegarde.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Axes suivis</span>
+        <span class="pill">Cyber</span>
+      </div>
+      <h2>Ce que je surveille</h2>
+      <ul>
+        <li>Les alertes de vulnérabilités sur les systèmes Windows, Linux, VPN et pare-feu.</li>
+        <li>Les bonnes pratiques d'administration sécurisée et de gestion des comptes privilégiés.</li>
+        <li>Les évolutions autour de l'authentification multifacteur et du contrôle d'accès.</li>
+        <li>Les recommandations liées aux certificats, à OpenVPN et aux accès distants.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="card-topline">
+        <span class="card-num">Lien BTS</span>
+        <span class="pill pill-purple">SISR</span>
+      </div>
+      <h2>Ce que la veille m'apporte</h2>
+      <p class="text">
+        Elle complète la pratique réalisée en stage et en projet. Par exemple, lorsqu'un accès
+        distant est mis en place, je dois aussi penser aux certificats, aux comptes utilisateurs,
+        aux règles de pare-feu, à la supervision, aux sauvegardes et au plan de correction.
+      </p>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Sources principales</div>
+        <p class="panel-meta">Sources sélectionnées pour leur fiabilité et leur lien direct avec l'administration SISR.</p>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="source-list">
+        <a class="source" href="https://www.cert.ssi.gouv.fr/">
+          <span class="source-name">CERT-FR</span>
+          <span class="source-desc">Alertes, avis de sécurité, bulletins d'actualité et recommandations de durcissement.</span>
+        </a>
+        <a class="source" href="https://messervices.cyber.gouv.fr/guides/recommandations-relatives-ladministration-securisee-des-si">
+          <span class="source-name">ANSSI</span>
+          <span class="source-desc">Guide de recommandations pour l'administration sécurisée des systèmes d'information.</span>
+        </a>
+        <a class="source" href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-all-users-mfa">
+          <span class="source-name">Microsoft Learn</span>
+          <span class="source-desc">Bonnes pratiques MFA et accès conditionnel pour renforcer la sécurité des identités.</span>
+        </a>
+        <a class="source" href="https://docs.netgate.com/pfsense/en/latest/vpn/openvpn/">
+          <span class="source-name">Netgate pfSense</span>
+          <span class="source-desc">Documentation officielle OpenVPN, certificats, règles pare-feu et accès distant.</span>
+        </a>
+      </div>
+
+      <div class="button-row">
+        <a class="button" href="realisations.html">Revoir les réalisations</a>
+        <a class="button" href="attestations.html">Revoir les stages</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="index.html">← Accueil</a>
+    <span>BTS SIO SISR - Session 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

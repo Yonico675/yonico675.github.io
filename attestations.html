@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stages - Portfolio E5 SISR</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #151922;
+    --border: rgba(255,255,255,0.08);
+    --accent: #4af0a8;
+    --accent2: #a78bfa;
+    --text: #e8eaf0;
+    --muted: #8a93a3;
+    --muted-dark: #5f6674;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 58px 58px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 620px;
+    height: 420px;
+    background:
+      radial-gradient(ellipse at 25% 45%, rgba(74,240,168,0.07), transparent 58%),
+      radial-gradient(ellipse at 72% 25%, rgba(167,139,250,0.07), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .hero {
+    padding: 4.5rem 0 3rem;
+    max-width: 780px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.1rem;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub,
+  .card-text {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .stage-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(17,21,29,0.78);
+    padding: 1.35rem;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.7s ease forwards 0.2s;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .stage-card:hover {
+    background: var(--surface);
+    border-color: rgba(255,255,255,0.18);
+  }
+
+  .card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dark);
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    border: 1px solid rgba(74,240,168,0.25);
+    border-radius: 999px;
+    padding: 4px 9px;
+    white-space: nowrap;
+  }
+
+  .pill-purple {
+    color: var(--accent2);
+    border-color: rgba(167,139,250,0.28);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: auto;
+    padding-top: 1.4rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: var(--text); }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 860px) {
+    .stage-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 620px) {
+    .wrapper { padding: 0 1.2rem; }
+    nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { justify-content: flex-start; }
+    h1 { font-size: 2.35rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<link rel="stylesheet" href="projection.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <nav>
+    <a href="index.html" class="nav-logo">portfolio.e5</a>
+    <div class="nav-links" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="stage1.html">Stage 1</a>
+      <a href="stage2.html">Stage 2</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="competences.html">Veille</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Étape 03 du fil E5</div>
+    <h1>Stages et activités réalisées</h1>
+    <p class="hero-sub">
+      Cette page sert de sommaire pour l'oral. Chaque période de stage possède maintenant
+      sa propre page, avec un texte plus grand pour être lisible au tableau.
+    </p>
+  </section>
+
+  <div class="section-label">
+    <span>Pages de stage</span>
+    <span>2 pages</span>
+  </div>
+
+  <div class="stage-grid">
+    <a class="stage-card" href="stage1.html">
+      <div class="card-topline">
+        <span class="card-num">Stage 01</span>
+        <span class="pill">1ère année</span>
+      </div>
+      <h2>Projet schéma réseau</h2>
+      <p class="card-text">
+        Analyse d'une infrastructure d'atelier: postes informatiques, machines, baies de brassage,
+        switches, schéma physique, schéma logique, VLAN, MPLS et firewall Palo Alto.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Cartographie</span>
+        <span class="tag">Baies</span>
+        <span class="tag">VLAN</span>
+        <span class="tag">MPLS</span>
+      </div>
+      <div class="button-row">
+        <span class="button">Ouvrir la page stage 1</span>
+      </div>
+    </a>
+
+    <a class="stage-card" href="stage2.html">
+      <div class="card-topline">
+        <span class="card-num">Stage 02</span>
+        <span class="pill pill-purple">2ème année</span>
+      </div>
+      <h2>Minebea AccessSolutions</h2>
+      <p class="card-text">
+        Stage de 8 semaines au service IT: support utilisateurs, configuration de postes,
+        Active Directory, GPO, SAP, VPN, certificats, ZBook, CATIA et maintenance matérielle.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Support N1/N2</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">SAP</span>
+        <span class="tag">VPN</span>
+      </div>
+      <div class="button-row">
+        <span class="button">Ouvrir la page stage 2</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <a href="index.html">← Accueil</a>
+    <span>BTS SIO SISR - Session 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

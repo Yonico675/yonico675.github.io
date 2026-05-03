@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 2ème année - Minebea AccessSolutions</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0f12;
+    --surface: #151922;
+    --border: rgba(255,255,255,0.08);
+    --accent: #4af0a8;
+    --accent2: #a78bfa;
+    --accent3: #f7c948;
+    --text: #e8eaf0;
+    --muted: #8a93a3;
+    --muted-dark: #5f6674;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 58px 58px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 620px;
+    height: 420px;
+    background:
+      radial-gradient(ellipse at 25% 40%, rgba(167,139,250,0.08), transparent 58%),
+      radial-gradient(ellipse at 74% 28%, rgba(74,240,168,0.06), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .hero {
+    padding: 4.5rem 0 3rem;
+    max-width: 820px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.1rem;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.85rem;
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: 0;
+    margin-bottom: 0.75rem;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+  .hero-sub, .text, li {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.75;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  .info-item {
+    background: rgba(13,15,18,0.95);
+    padding: 1rem;
+  }
+  .info-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.45rem;
+  }
+  .info-value {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .grid-2, .grid-3 {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .visual {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(17,21,29,0.78);
+    margin-bottom: 4rem;
+  }
+  .visual img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+  .visual figcaption {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0.85rem 1rem;
+  }
+  .card, .panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(17,21,29,0.78);
+  }
+  .card {
+    padding: 1.25rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+  .panel {
+    margin-bottom: 4rem;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+  .panel-header {
+    padding: 1.45rem 1.6rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(21,25,34,0.84);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-bottom: 0.35rem;
+  }
+  .panel-body { padding: 1.6rem; }
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    border: 1px solid rgba(167,139,250,0.28);
+    border-radius: 999px;
+    padding: 4px 9px;
+    white-space: nowrap;
+  }
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+  li {
+    position: relative;
+    padding-left: 1rem;
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent2);
+  }
+  .timeline {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1.2rem;
+  }
+  .week {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem;
+    background: rgba(13,15,18,0.95);
+    padding: 1rem 1.2rem;
+  }
+  .week-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+  }
+  .week-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.02);
+  }
+  .button:hover {
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.05);
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--text); }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 900px) {
+    .info-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .week { grid-template-columns: 1fr; gap: 0.45rem; }
+  }
+  @media (max-width: 620px) {
+    .wrapper { padding: 0 1.2rem; }
+    nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { justify-content: flex-start; }
+    h1 { font-size: 2.35rem; }
+    .panel-header { flex-direction: column; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<link rel="stylesheet" href="projection.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <nav>
+    <a href="index.html" class="nav-logo">portfolio.e5</a>
+    <div class="nav-links" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="attestations.html">Stages</a>
+      <a href="stage1.html">Stage 1</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="competences.html">Veille</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Stage 2ème année</div>
+    <h1>Minebea AccessSolutions</h1>
+    <p class="hero-sub">
+      Pour mon stage de deuxième année, j'ai intégré le service IT de Minebea AccessSolutions.
+      J'ai participé au support informatique, à la configuration de postes, aux interventions
+      sur SAP, aux incidents VPN et à la maintenance du parc informatique.
+    </p>
+    <div class="button-row">
+      <a class="button" href="rapport_stage_roullet_gaetan2eme.pdf">Ouvrir le rapport PDF</a>
+      <a class="button" href="stage1.html">Revoir le stage 1</a>
+    </div>
+  </section>
+
+  <div class="section-label">
+    <span>Contexte du stage</span>
+    <span>8 semaines - 2026</span>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="info-label">Entreprise</div>
+      <div class="info-value">Minebea AccessSolutions</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Secteur</div>
+      <div class="info-value">Industrie automobile et technologies d'accès</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Service</div>
+      <div class="info-value">Service IT - gestion du système d'information</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Tuteur</div>
+      <div class="info-value">M. Jean-Michel Chiroux</div>
+    </div>
+  </div>
+
+  <figure class="visual">
+    <img src="installation-rack-salle-informatique.webp" alt="Salle informatique avec racks et baies réseau">
+    <figcaption>Illustration d'une salle informatique: le stage m'a permis de mieux comprendre le lien entre parc utilisateur, équipements réseau et maintien en condition opérationnelle.</figcaption>
+  </figure>
+
+  <section class="grid-3">
+    <article class="card">
+      <h2>Support informatique</h2>
+      <ul>
+        <li>Assistance de premier et second niveau auprès des utilisateurs.</li>
+        <li>Gestion d'incidents Windows, VPN, SAP, son, réseau et sessions bloquées.</li>
+        <li>Diagnostic d'écrans bleus causés par des pilotes réseau obsolètes.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Postes et logiciels</h2>
+      <ul>
+        <li>Configuration de postes: domaine, GPO, mises à jour et applications.</li>
+        <li>Préparation de laptops et de HP ZBook pour les bureaux d'étude.</li>
+        <li>Installation et configuration de CATIA sur les ZBook.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Accès et maintenance</h2>
+      <ul>
+        <li>Changements d'UPN et renouvellement de certificats utilisateurs.</li>
+        <li>Préparation de clés USB sécurisées et déblocage de comptes SAP/Windows.</li>
+        <li>Interventions matérielles: disque dur HS, alimentation, carte WiFi.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Activités semaine par semaine</div>
+        <p class="text">Cette progression montre la montée en autonomie pendant les 8 semaines.</p>
+      </div>
+      <span class="pill">Résumé oral</span>
+    </div>
+    <div class="panel-body">
+      <div class="timeline">
+        <div class="week">
+          <div class="week-label">Semaine 1</div>
+          <div>
+            <div class="week-title">Premières interventions et configuration</div>
+            <p class="text">Changement d'UPN, certificats, ajout de carte WiFi, incidents réseau, écrans bleus et configuration de postes au domaine.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 2</div>
+          <div>
+            <div class="week-title">Support applicatif et comptes utilisateurs</div>
+            <p class="text">Configuration de postes supplémentaires, dépannage SAP, transfert de données et correction d'une erreur de création d'utilisateur.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 3</div>
+          <div>
+            <div class="week-title">Laptops, anciens PC et VPN</div>
+            <p class="text">Préparation de laptops, récupération d'anciens PC, formatage de disques et gestion d'une panne VPN affectant plusieurs postes.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 4</div>
+          <div>
+            <div class="week-title">Maintenance et procédure interne</div>
+            <p class="text">Correction d'un problème HEIC, diagnostic d'un disque dur HS, reconfiguration d'un poste fin de ligne et mise à jour d'une procédure.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 5</div>
+          <div>
+            <div class="week-title">Autonomie sur les postes</div>
+            <p class="text">Restauration d'une base de données, préparation de trois postes en autonomie, clés USB sécurisées, son et déblocage Windows.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 6</div>
+          <div>
+            <div class="week-title">Wyse, ZBook et CATIA</div>
+            <p class="text">Résolution d'un problème serveur sur Wyse, préparation des ZBook pour trois sites en France et configuration de CATIA.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 7</div>
+          <div>
+            <div class="week-title">Finalisation et postes de backup</div>
+            <p class="text">Finalisation des ZBook, préparation de postes backup pour remplacer des Wyse, changement d'alimentation et mots de passe SAP/Windows.</p>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-label">Semaine 8</div>
+          <div>
+            <div class="week-title">Clôture et support courant</div>
+            <p class="text">Préparation et reconfiguration d'un laptop, déblocage de sessions Windows et déblocage de comptes SAP.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Compétences acquises</div>
+        <p class="text">Le stage a consolidé les compétences du référentiel BTS SIO SISR.</p>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="grid-3" style="margin-bottom: 0;">
+        <article class="card">
+          <h2>Patrimoine informatique</h2>
+          <p class="text">Configuration, formatage, déploiement de laptops ZBook, suivi de postes et préparation de matériels.</p>
+        </article>
+        <article class="card">
+          <h2>Incidents et assistance</h2>
+          <p class="text">Pannes, écrans bleus, SAP, VPN, déblocage de sessions, son et demandes utilisateurs.</p>
+        </article>
+        <article class="card">
+          <h2>Service informatique</h2>
+          <p class="text">Mise à disposition de postes, ajout au domaine, GPO, déploiement de CATIA et postes de remplacement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <article class="card">
+      <h2>Bilan technique</h2>
+      <p class="text">
+        Ce stage m'a permis d'utiliser des outils du quotidien d'un technicien IT:
+        Active Directory, SAP, VPN, déploiement de postes, Hiren's Boot CD, Rufus et
+        maintenance matérielle. La diversité des situations m'a rendu plus polyvalent.
+      </p>
+    </article>
+    <article class="card">
+      <h2>Bilan professionnel</h2>
+      <p class="text">
+        J'ai appris à communiquer avec les utilisateurs, gérer les priorités et travailler
+        avec davantage d'autonomie. À partir de la cinquième semaine, j'étais capable de
+        préparer et configurer des postes complets sans assistance.
+      </p>
+    </article>
+  </section>
+
+  <footer>
+    <a href="attestations.html">← Retour aux stages</a>
+    <span>BTS SIO SISR - Session 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

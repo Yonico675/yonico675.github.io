@@ -1,0 +1,82 @@
+/* Lecture au tableau / vidéoprojecteur */
+body {
+  font-size: 18px;
+}
+
+.wrapper {
+  max-width: 1120px;
+}
+
+.hero-sub,
+.lead,
+.card-text,
+.panel-text,
+.timeline-text,
+.flow-text,
+.text,
+.source-desc,
+.rp-desc,
+li,
+.visual figcaption {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+}
+
+.flow-title,
+.timeline-title,
+.week-title,
+.doc-name,
+.identity-value,
+.info-value,
+h3 {
+  font-size: 18px !important;
+}
+
+.nav-links a,
+.nav-back,
+.nav-logo,
+.button,
+.doc-link {
+  font-size: 13px !important;
+}
+
+.section-label,
+.eyebrow,
+.card-num,
+.pill,
+.tag,
+.info-label,
+.week-label,
+.source-name,
+.doc-meta,
+.doc-badge,
+.rp-section-title,
+.rp-num,
+.rp-status {
+  font-size: 12px !important;
+}
+
+.button,
+.doc-link {
+  padding: 0.8rem 1rem !important;
+}
+
+@media (max-width: 620px) {
+  body {
+    font-size: 16px;
+  }
+
+  .hero-sub,
+  .lead,
+  .card-text,
+  .panel-text,
+  .timeline-text,
+  .flow-text,
+  .text,
+  .source-desc,
+.rp-desc,
+li,
+.visual figcaption {
+    font-size: 16px !important;
+  }
+}

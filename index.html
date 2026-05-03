@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio E5 BTS SIO SISR - Gaétan Roullet</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #151922;
+    --surface-soft: #11151d;
+    --border: rgba(255,255,255,0.08);
+    --accent: #4af0a8;
+    --accent2: #a78bfa;
+    --accent3: #f7c948;
+    --accent4: #60a5fa;
+    --text: #e8eaf0;
+    --muted: #8a93a3;
+    --muted-dark: #5f6674;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 58px 58px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 620px;
+    height: 420px;
+    background:
+      radial-gradient(ellipse at 30% 45%, rgba(74,240,168,0.08), transparent 58%),
+      radial-gradient(ellipse at 70% 25%, rgba(167,139,250,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .hero {
+    padding: 5.5rem 0 3.8rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 3rem;
+    align-items: end;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.8rem;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0;
+    margin-bottom: 1.35rem;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .hero-sub {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .identity-panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(21,25,34,0.72);
+    padding: 1.35rem;
+  }
+
+  .identity-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .identity-row:last-child { border-bottom: 0; }
+
+  .identity-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .identity-value {
+    font-size: 13px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .oral-flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 4.5rem;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+
+  .flow-step {
+    background: rgba(13,15,18,0.96);
+    padding: 1.25rem;
+    min-height: 132px;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .flow-step:hover { background: var(--surface); }
+
+  .flow-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dark);
+    margin-bottom: 0.8rem;
+  }
+
+  .flow-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 0.55rem;
+  }
+
+  .flow-text {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .content-section {
+    margin-bottom: 4.5rem;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .section-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+    margin-bottom: 0.9rem;
+  }
+
+  .lead {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .timeline-item {
+    background: rgba(13,15,18,0.96);
+    padding: 1.25rem 1.35rem;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem;
+  }
+
+  .time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+  }
+
+  .timeline-title {
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-text {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .stage-grid, .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .info-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(17,21,29,0.78);
+    padding: 1.35rem;
+  }
+
+  .card-topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dark);
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    border: 1px solid rgba(74,240,168,0.25);
+    border-radius: 999px;
+    padding: 4px 9px;
+    white-space: nowrap;
+  }
+
+  .pill-purple {
+    color: var(--accent2);
+    border-color: rgba(167,139,250,0.28);
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0;
+  }
+
+  .card-text {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .button:hover {
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.05);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    margin-right: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  @media (max-width: 860px) {
+    .hero, .split { grid-template-columns: 1fr; }
+    .hero { padding-top: 4rem; }
+    .oral-flow { grid-template-columns: 1fr; }
+    .stage-grid, .cards-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.55rem; }
+  }
+
+  @media (max-width: 620px) {
+    .wrapper { padding: 0 1.2rem; }
+    nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { justify-content: flex-start; }
+    h1 { font-size: 2.45rem; }
+    h2 { font-size: 1.7rem; }
+    .identity-row { flex-direction: column; gap: 0.25rem; }
+    .identity-value { text-align: left; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<link rel="stylesheet" href="projection.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <nav>
+    <a class="nav-logo" href="index.html">portfolio.e5</a>
+    <div class="nav-links" aria-label="Navigation principale">
+      <a href="#presentation">Présentation</a>
+      <a href="#parcours">Parcours</a>
+      <a href="attestations.html">Stages</a>
+      <a href="stage1.html">Stage 1</a>
+      <a href="stage2.html">Stage 2</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="competences.html">Veille</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="presentation">
+    <div>
+      <div class="eyebrow">Support d'oral E5 - BTS SIO SISR</div>
+      <h1>Gaétan Roullet,<br><span>parcours SISR</span></h1>
+      <p class="hero-sub">
+        Ce portfolio présente mon profil, mon parcours en BTS SIO, mes périodes de stage,
+        les activités réalisées en entreprise, mes réalisations professionnelles et ma veille
+        informationnelle autour de l'administration système, du réseau et de la cybersécurité.
+      </p>
+      <div class="cta-row">
+        <a class="button" href="attestations.html">Voir les stages</a>
+        <a class="button" href="competences.html">Voir la veille</a>
+      </div>
+    </div>
+
+    <aside class="identity-panel" aria-label="Identité">
+      <div class="identity-row">
+        <span class="identity-label">Étudiant</span>
+        <span class="identity-value">Gaétan Roullet</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Formation</span>
+        <span class="identity-value">BTS SIO option SISR</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Établissement</span>
+        <span class="identity-value">Lycée Raoul Follereau</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Promotion</span>
+        <span class="identity-value">2024 - 2026</span>
+      </div>
+    </aside>
+  </section>
+
+  <div class="section-label">
+    <span>Fil conducteur de l'oral</span>
+    <span>05 étapes</span>
+  </div>
+
+  <div class="oral-flow">
+    <a class="flow-step" href="#presentation">
+      <div class="flow-num">01</div>
+      <div class="flow-title">Me présenter</div>
+      <p class="flow-text">Identité, formation suivie, option SISR et objectif professionnel.</p>
+    </a>
+    <a class="flow-step" href="#parcours">
+      <div class="flow-num">02</div>
+      <div class="flow-title">Expliquer mon parcours</div>
+      <p class="flow-text">Progression pendant le BTS, compétences travaillées et choix de spécialisation.</p>
+    </a>
+    <a class="flow-step" href="attestations.html">
+      <div class="flow-num">03</div>
+      <div class="flow-title">Présenter les stages</div>
+      <p class="flow-text">Contexte d'entreprise, missions réalisées et bilan des périodes en entreprise.</p>
+    </a>
+    <a class="flow-step" href="realisations.html">
+      <div class="flow-num">04</div>
+      <div class="flow-title">Montrer les réalisations</div>
+      <p class="flow-text">Mise en place d'infrastructures, sécurité réseau, documentation technique.</p>
+    </a>
+    <a class="flow-step" href="competences.html">
+      <div class="flow-num">05</div>
+      <div class="flow-title">Conclure par la veille</div>
+      <p class="flow-text">Sources suivies, sujet choisi et lien avec mon projet professionnel.</p>
+    </a>
+  </div>
+
+  <section class="content-section split" id="parcours">
+    <div>
+      <div class="section-kicker">Parcours</div>
+      <h2>Une progression orientée infrastructure et support</h2>
+      <p class="lead">
+        Mon parcours en BTS SIO SISR m'a permis de passer d'une approche scolaire des systèmes
+        et réseaux à une approche plus professionnelle: diagnostiquer, documenter, sécuriser
+        et maintenir un service informatique disponible pour les utilisateurs.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">2024</div>
+        <div>
+          <div class="timeline-title">Entrée en BTS SIO</div>
+          <p class="timeline-text">Découverte des bases réseau, des systèmes Windows et Linux, de la virtualisation et du support utilisateur.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">2025</div>
+        <div>
+          <div class="timeline-title">Projet de schéma réseau</div>
+          <p class="timeline-text">Analyse d'un atelier, repérage des postes, machines et baies de brassage, puis création d'un schéma physique et logique avec VLAN, MPLS et firewall Palo Alto.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">2026</div>
+        <div>
+          <div class="timeline-title">Stage chez Minebea AccessSolutions</div>
+          <p class="timeline-text">Support IT, configuration de postes, interventions sur SAP, VPN, certificats, déploiement de laptops ZBook et maintenance matérielle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="travaux">
+    <div class="section-label">
+      <span>Travaux pendant les 2 ans</span>
+      <span>Niveau moyen</span>
+    </div>
+
+    <div class="cards-grid">
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">GLPI</span>
+          <span class="pill">Support</span>
+        </div>
+        <h2 class="card-title">Gestion de parc et tickets</h2>
+        <p class="card-text">Découverte du suivi de parc informatique, des tickets d'incident et de l'organisation d'un support utilisateur.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Site Rébus</span>
+          <span class="pill pill-purple">Web</span>
+        </div>
+        <h2 class="card-title">Site web interactif</h2>
+        <p class="card-text">Travail sur la structure d'une page, la navigation, la présentation du contenu et les bases HTML/CSS.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Escape game</span>
+          <span class="pill">Projet</span>
+        </div>
+        <h2 class="card-title">Logique et parcours utilisateur</h2>
+        <p class="card-text">Création d'un enchaînement d'énigmes et d'une expérience interactive pour travailler la logique et l'organisation.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Web</span>
+          <span class="pill pill-purple">Niveau moyen</span>
+        </div>
+        <h2 class="card-title">Bases du développement web</h2>
+        <p class="card-text">Création de pages, liens, mise en forme CSS et adaptation du contenu pour le portfolio.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Informatique générale</span>
+          <span class="pill">Niveau moyen</span>
+        </div>
+        <h2 class="card-title">Culture technique</h2>
+        <p class="card-text">Systèmes, réseau, support, sécurité de base, résolution de problèmes et documentation technique.</p>
+      </article>
+    </div>
+
+    <div class="cta-row">
+      <a class="button" href="competences.html">Voir le détail des compétences</a>
+    </div>
+  </section>
+
+  <section class="content-section" id="stages">
+    <div class="section-label">
+      <span>Stages et activités</span>
+      <span>Approfondissement</span>
+    </div>
+
+    <div class="stage-grid">
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Stage 01</span>
+          <span class="pill">1ère année</span>
+        </div>
+        <h2 class="card-title">Projet de schéma réseau</h2>
+        <p class="card-text">
+          Analyse d'une infrastructure d'atelier: postes, machines, baies de brassage,
+          switches, liens cuivre/fibre, schéma physique, schéma logique, VLAN, zone MPLS
+          et firewall Palo Alto.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Cartographie</span>
+          <span class="tag">Baies de brassage</span>
+          <span class="tag">VLAN</span>
+          <span class="tag">MPLS</span>
+          <span class="tag">Palo Alto</span>
+        </div>
+        <div class="cta-row">
+          <a class="button" href="stage1.html">Ouvrir la page stage 1</a>
+        </div>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Stage 02</span>
+          <span class="pill pill-purple">2ème année</span>
+        </div>
+        <h2 class="card-title">Minebea AccessSolutions - Service IT</h2>
+        <p class="card-text">
+          Stage de 8 semaines en environnement industriel. Les activités principales portent sur
+          le support de premier et second niveau, la configuration de postes, les accès utilisateurs,
+          les incidents SAP/VPN et la maintenance du parc informatique.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Active Directory</span>
+          <span class="tag">GPO</span>
+          <span class="tag">SAP</span>
+          <span class="tag">VPN</span>
+          <span class="tag">CATIA</span>
+        </div>
+        <div class="cta-row">
+          <a class="button" href="stage2.html">Ouvrir la page stage 2</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="cta-row">
+      <a class="button" href="attestations.html">Sommaire des stages</a>
+      <a class="button" href="stage1.html">Stage 1ère année</a>
+      <a class="button" href="stage2.html">Stage 2ème année</a>
+      <a class="button" href="rapport_stage_roullet_gaetan2eme.pdf">Rapport stage 2ème année</a>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-label">
+      <span>Réalisations et veille</span>
+      <span>Conclusion de l'oral</span>
+    </div>
+
+    <div class="cards-grid">
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Réalisations</span>
+          <span class="pill">SISR</span>
+        </div>
+        <h2 class="card-title">Prouver les compétences techniques</h2>
+        <p class="card-text">
+          Les réalisations professionnelles montrent ma capacité à concevoir, déployer et documenter
+          une infrastructure réseau: services Linux, supervision, pare-feu pfSense et VPN OpenVPN.
+        </p>
+        <a class="button" href="realisations.html">Voir les réalisations</a>
+      </article>
+
+      <article class="info-card">
+        <div class="card-topline">
+          <span class="card-num">Veille</span>
+          <span class="pill pill-purple">Cybersécurité</span>
+        </div>
+        <h2 class="card-title">Relier le BTS à l'actualité métier</h2>
+        <p class="card-text">
+          Ma veille porte sur la sécurisation des accès distants, l'administration sécurisée
+          et les vulnérabilités qui touchent les infrastructures utilisées en entreprise.
+        </p>
+        <a class="button" href="competences.html">Voir compétences et veille</a>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span><span class="dot"></span>Portfolio E5 en ligne</span>
+    <span>BTS SIO SISR - Session 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
