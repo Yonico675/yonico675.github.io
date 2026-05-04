@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Rébus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            text-align: center;
+            color: #4a4a8a;
+            margin-bottom: 20px;
+        }
+        .projet-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+        .rebus-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .rebus-images img {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 200px;
+        }
+        .projet-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        .projet-info h3 {
+            color: #4a4a8a;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .projet-info p, .projet-info ul {
+            line-height: 1.6;
+            color: #555;
+        }
+        .competences {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .competence-tag {
+            background-color: #e0e0ff;
+            color: #4a4a8a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .projet-liens {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .bouton {
+            display: inline-block;
+            background-color: #4a4a8a;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .bouton:hover {
+            background-color: #3a3a7a;
+        }
+    </style>
+</head>
+<body>
+    <section id="projet-rebus" class="section">
+        <h2>Projet : Rébus</h2>
+        <div class="projet-details">
+            <div class="rebus-images">
+                <img src="images/rebus-empreintes.png" alt="Empreintes" width="200">
+                <img src="images/rebus-rat.png" alt="Rat" width="200">
+                <img src="images/rebus-pluie.png" alt="Pluie" width="200">
+            </div>
+            <div class="projet-info">
+                <h3>Description</h3>
+                <p>
+                    Ce projet consistait à créer un <strong>jeu de Rébus</strong> où il fallait deviner des expressions à partir d'images.
+                    <br><br>
+                    <strong>Exemple de rébus :</strong> Pas + Rat + Pluie = "Parapluie".
+                    <br><br>
+                    <strong>Technologies utilisées :</strong> HTML, CSS, JavaScript.
+                </p>
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Affichage aléatoire de rébus.</li>
+                    <li>Système de vérification des réponses.</li>
+                    <li>Compteur de score.</li>
+                </ul>
+                <h3>Compétences développées</h3>
+                <div class="competences">
+                    <span class="competence-tag">HTML/CSS</span>
+                    <span class="competence-tag">JavaScript</span>
+                    <span class="competence-tag">Logique de jeu</span>
+                </div>
+                <div class="projet-liens">
+                    <a href="#" class="bouton">Voir le code (GitHub)</a>
+                    <a href="#" class="bouton">Essayer la démo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
